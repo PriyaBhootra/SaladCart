@@ -1,0 +1,120 @@
+﻿@using System.Linq
+@model List<Salads>
+
+@{
+    var userId = Context.Session.GetString("UserId");
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+ 
+    .salad-thumbnail {
+        border-radius: 8px;
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+    }
+
+    .card-salad {
+        max-width: 260px;
+        border: 1px solid #c8e6c9;
+        border-radius: 10px;
+        transition: box-shadow 0.2s ease;
+    }
+
+        .card-salad:hover {
+            box-shadow: 0 4px 8px rgba(76, 175, 80, 0.15);
+        }
+
+    .btn-add {
+        font-size: 0.85rem;
+        padding: 0.35rem 0.7rem;
+        border-radius: 18px;
+    }
+
+    .group-header {
+        background-color: #e8f5e9;
+        padding: 8px 14px;
+        border-left: 4px solid #4caf50;
+        border-radius: 6px;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .card-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #388e3c;
+    }
+
+    .card-price {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: #2e7d32;
+    }
+
+    .card-text {
+        font-size: 0.8rem;
+    }
+
+</style>
+
+<div class="text-center mb-4">
+    <h3 class="display-5 text-success fw-bold">Divine Veggies Delight 🥗</h3>
+    <p class="lead text-muted">Healthy and hearty bowls made with love — explore our salads by category.</p>
+</div>
+
+<div class="container" style="max-width: 1000px;">
+    @foreach (var group in Model.GroupBy(s => s.Type))
+    {
+        <div class="group-header mb-3">
+            <h4 class="mb-0 text-success">@group.Key</h4>
+        </div>
+        <div class="row g-4">
+            @foreach (var entry in group)
+            {
+                <div class="col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+                    <div class="card card-salad shadow-sm text-center h-100">
+
+                        <img src="@Url.Content("~/Images/" + entry.Image)"
+                             class="salad-thumbnail mx-auto mt-3"
+                             alt="@entry.Name" />
+
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <h5 class="card-title fs-6 text-success fw-semibold">🌿 @entry.Name</h5>
+                            <p class="card-text small text-muted mb-2">@entry.Description</p>
+                            <p class="text-success mb-2 fw-bold">₹@entry.Price</p>
+
+                            <a href="javascript:void(0);"
+                               class="btn btn-outline-success btn-add mt-auto add-to-cart"
+                               data-saladid="@entry.Id"
+                               data-userid="@userId">
+                                ➕ Add to Cart
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@section Scripts
+{
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', () => {
+                    const saladId = button.dataset.saladid;
+                    const userId = button.dataset.userid;
+
+                    if (!userId) {
+                        window.location.href = '/Account/Login';
+                    } else {
+                        window.location.href = '/Cart/AddItem?saladid=' + saladId;
+                    }
+                });
+            });
+        });
+    </script>
+}
