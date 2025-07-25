@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SaladCart.Models;
-using Stripe.Checkout;
+//using Stripe.Checkout;
 
 namespace SaladCart.Controllers
 {
     public class PaymentController : Controller
     {
+        /*
         private readonly StripeSettings _stripeSettings;
 
         public PaymentController(IOptions<StripeSettings> stripeSettings)
@@ -48,6 +49,7 @@ namespace SaladCart.Controllers
         }
 
         public IActionResult Success() => View();
-        public IActionResult Cancel() => View();
+        public IActionResult Cancel() => View();  */
     }
+
 }

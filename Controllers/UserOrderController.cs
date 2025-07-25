@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SaladCart.Data;
 using SaladCart.Models;
-using Stripe.Climate;
 
 namespace SaladCart.Controllers
 {
