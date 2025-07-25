@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-"# SaladCart" 
-"# SaladCart" 
-=======
+
 # 🥗 Salad Cart - ASP.NET 9 MVC Project
 
 An online salad ordering web application built using **ASP.NET MVC**, **Entity Framework**, and **Identity**. The project includes features like user authentication, role-based authorization, cart management, CRUD operations, and order tracking.
@@ -31,7 +28,7 @@ An online salad ordering web application built using **ASP.NET MVC**, **Entity F
 
 ### 🛍️ Request & Response Logging Middleware
 - log both request and response details
-- 
+
 ---
 
 ## 🧱 Tech Stack
