@@ -39,7 +39,9 @@
         <select asp-for="PaymentMethod" class="form-control">
                 <option value="">Select Payment Method</option>
             <option value="COD">COD</option>
-            <option value="Online">Online</option>
+            <option value="Online">CreditCard</option>
+            <option value="Online">NetBanking</option>
+            <option value="Online">UPI</option>
 
         </select>
         <span asp-validation-for="PaymentMethod" class="text-danger"></span>

@@ -70,10 +70,9 @@ namespace SaladCart.Controllers
                 return View(model);
             string? userid = HttpContext.Session.GetString("UserId");
 
-           // if (model.PaymentMethod == "Online")
-                 //ViewBag.PublishableKey = _stripeSettings.SecretKey;
-            //CreateCheckoutSession(model);
-
+            // if (model.PaymentMethod == "Online")
+            //ViewBag.PublishableKey = _stripeSettings.SecretKey;
+            //CreateCheckoutSession(model);            
 
             bool isCheckedOut = _cartRepository.DoCheckout(model, userid);
             if (!isCheckedOut)

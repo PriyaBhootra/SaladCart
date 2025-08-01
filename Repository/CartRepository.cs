@@ -159,7 +159,7 @@ namespace SaladCart.Repository
             {
                 // logic
                 // move data from cartDetail to order and order detail then we will remove cart detail
-               
+               int orederstatus = 0;
                 if (string.IsNullOrEmpty(userId))                   
                     throw new UnauthorizedAccessException("User is not logged-in");
 
@@ -177,10 +177,19 @@ namespace SaladCart.Repository
                 if (cartDetail.Count == 0)
                     throw new InvalidOperationException("Cart is empty");
 
+                //adding payment logic 
+                if (model.PaymentMethod is not null)
+                {
+                    Ipayment ipayment = PaymentFactory.getPaymentMethod(model.PaymentMethod.ToString());
+                    double amount = cartDetail.Sum(item => item.Salad.Price * item.Quantity);
+                    ipayment.Pay(amount);
+                    orederstatus = 1;
+
+                }
 
                 //var pendingRecord = _db.orderStatuses.FirstOrDefault(s => s.StatusName == "Pending");
                 //if (pendingRecord is null)
-                    //throw new InvalidOperationException("Order status does not have Pending status");
+                //throw new InvalidOperationException("Order status does not have Pending status");
 
 
                 var order = new Order
@@ -193,7 +202,7 @@ namespace SaladCart.Repository
                     PaymentMethod = model.PaymentMethod,
                     Address = model.Address,
                     IsPaid = false,
-                    OrderStatusId = 1//pendingRecord.Id
+                    OrderStatusId = orederstatus//pendingRecord.Id
                 };
 
                 _db.Orders.Add(order);
